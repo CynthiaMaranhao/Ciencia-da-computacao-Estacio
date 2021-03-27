@@ -1,0 +1,121 @@
+#include <iostream>
+using namespace std;
+int main ()
+{
+// FOLHA DE PAGAMENTO
+char nmfunc [30], mes [15], cargo[11];
+int codfun, codcargo, qtfil, dtrab, codsal, codinss, codfam, codfgts, codir;
+float inss, ir, fam, fgts, salario, salbruto, salliq;
+
+
+cout << "Mês pagamento: ";
+cin >> mes ;
+cout <<endl << "Código do funcionário: " ;
+cin >> codfun;
+cout <<endl << "Nome do Funcionario: " ;
+cin >> nmfunc;
+cout <<endl << "Cargo do Funcionario [1] Assistente, [2] Analista, [3] Gerente: ";
+cin >> codcargo;
+cout <<endl << "Quantidade de filhos: ";
+cin >> qtfil;
+cout <<endl << "Dias trabalhados: " ;
+cin >> dtrab;
+cout << endl;
+
+
+
+//calcula salario baseado no cargo (salario bruto)
+codsal = 101;
+//Salário: assistente = 40; analista = 100, gerente = 200;
+if (codcargo == 1)
+{salbruto = dtrab * 40;}
+	else if (codcargo == 2)
+	{salbruto = dtrab * 100;}
+		else if(codcargo == 3)
+		{salbruto = dtrab * 200;}
+
+// calcula Salário Família (+)
+codfam = 673;
+if (qtfil==0)
+ {fam=0;}
+else if (qtfil!=0)
+{
+    if (salbruto <= 859.89)
+    {fam = 44.09 * qtfil;}
+       else if (salbruto > 859.89)
+      {fam = 31.07 * qtfil;}
+        	else if (salbruto >1292.43)
+        	{fam = 0;}
+}	 
+ 
+ 
+//calcula INSS (-)
+codinss = 973;
+if (salbruto < 1659.38)
+{inss = salbruto * 0.08;}
+	else if (salbruto <2756.67)
+	{inss = salbruto * 0.09;} 
+		else if (salbruto > 2756.67)
+		{inss = salbruto * 0.11;}
+
+ 
+// calcula IR (-)
+codir = 987;
+if (salbruto < 1903.99)
+{ir = 0;}
+	else if (salbruto < 2826.66)
+	{ir =((salbruto + fam - inss) * 0.075)- 142.9;}
+		else if (salbruto < 3751.06)
+		{ir =((salbruto + fam - inss) * 0.15)- 354.80;}
+			else if (salbruto < 4664.68)
+			{ir =((salbruto + fam - inss) * 0.23)- 636.13;}
+				else if (salbruto >= 4664.68)
+				{ir =((salbruto + fam - inss) * 0.275)- 869.36;}
+
+
+
+
+// calcula FGTS em cima do salario liquido
+codfgts = 617;
+fgts = salbruto * 0.08;
+
+
+//Salário Líquido
+salliq = salbruto + fam - inss - ir;
+
+//Nome do cargo
+/*if (cargofun=1)
+{ cargo == "Assistente";}
+    else if (cargofun=2)
+    { cargo == "Analista";}
+        else if (cargofun=2)
+        { cargo == "Gerente";}
+*/
+
+
+cout <<"=========FOLHA DE PAGAMENTO=========" <<endl;
+cout << "Mês de Vigência:       " << mes <<endl;
+cout << "Código do Funcionario: " << codfun <<endl;
+cout << "Nome do Funcionario:   " << nmfunc <<endl;
+cout << "Quantidade de filhos:   " << qtfil <<endl;
+cout << "Cargo: " << codcargo << " [1] Assistente, [2] Analista, [3] Gerente" <<endl;
+cout <<"====================================" << endl;
+cout << codsal;
+cout << "   Salario Bruto        R$ " << salbruto <<endl;
+cout << codfam;
+cout << "   Salário Família      R$ " <<fam <<endl;
+cout << codinss;
+cout << "   Valor INSS           R$ " <<inss <<endl;
+cout << codir;
+cout << "   Valor IR             R$ " <<ir <<endl;
+cout << codfgts;
+cout << "   Valor FGTS           R$ " <<fgts <<endl;
+cout <<"====================================" << endl;
+cout << " Valor Salário Líquido   R$ " << salliq <<endl;
+
+
+
+system ("pause");
+return 0;
+}
+ 
