@@ -1,2 +1,2 @@
 # aula
-Exercicios da faculdade de ciencia da computacao da Estacio
+## Exercicios da faculdade de ciência da computação da Estacio 
